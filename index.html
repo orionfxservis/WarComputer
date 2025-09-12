@@ -1,279 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>War Computers</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* --- Global Styles --- */
-    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif; }
-    body { background:#000; color:#fff; }
-    a { text-decoration:none; color:inherit; }
-    ul { list-style:none; }
-    img { max-width:100%; display:block; border-radius:8px; }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+    body{background:#000;color:#fff;overflow-x:hidden;}
 
-    /* --- Header --- */
-    header {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:10px 40px; background:rgba(0,0,0,0.9);
-      position:fixed; top:0; left:0; width:100%; z-index:1000;
-      box-shadow:0 2px 6px rgba(0,0,0,0.6);
-    }
-    header img.logo { height:50px; }
-    nav ul { display:flex; gap:20px; }
-    nav ul li a {
-      padding:8px 14px; color:#fff; transition:0.3s; border-radius:6px;
-    }
-    nav ul li a:hover, nav ul li a.active { background:orange; color:#000; }
-
-    /* --- Background Slideshow --- */
-    .slideshow { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
-    .slideshow img {
-      position:absolute; width:100%; height:100%;
-      object-fit:cover; filter:blur(8px); opacity:0;
-      transition:opacity 1s ease-in-out;
-    }
-    .slideshow img.active { opacity:1; }
-
-    /* --- Sections --- */
-    section { padding:100px 40px 60px; }
-    h2 { text-align:center; margin-top:100px; margin-bottom:20px; font-size:40px; color:orange; }
-
-    /* --- Grid for Products --- */
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-    .card { background:#111; border-radius:10px; padding:15px; box-shadow:0 0 10px rgba(255,140,0,0.4); }
-    .card h3 { color:orange; margin:10px 0; }
-    .card p { font-size:14px; margin-bottom:8px; }
-    .price { font-weight:bold; color:#fff; margin:10px 0; }
-    .details-btn {
-      display:inline-block; background:orange; color:#000; padding:8px 16px;
-      border-radius:6px; transition:0.3s; cursor:pointer;
-    }
-    .details-btn:hover { background:#fff; color:orange; }
-
-    /* --- Modals --- */
-    .modal {
-      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-      background:rgba(0,0,0,0.8); align-items:center; justify-content:center; z-index:2000;
-    }
-    .modal-content {
-      background:#111; padding:20px; border-radius:10px; width:450px; max-width:95%;
-      color:#fff; position:relative;
-    }
-    .modal-content h3 { margin-bottom:15px; color:orange; }
-    .modal-content label { display:block; margin:8px 0 4px; font-size:14px; }
-    .modal-content input, .modal-content textarea {
-      width:100%; padding:8px; margin-bottom:10px; border:none; border-radius:6px;
-    }
-    .modal-content img { width:100%; border-radius:6px; }
-    .close { position:absolute; top:10px; right:15px; font-size:20px; cursor:pointer; }
-
-    /* --- Image Slider inside Details Modal --- */
-    .details-slider { position:relative; margin-bottom:15px; }
-    .details-slider img { display:none; }
-    .details-slider img.active { display:block; }
-    .details-slider .arrow {
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(0,0,0,0.6); color:#fff; border:none; cursor:pointer;
-      padding:6px 10px; font-size:18px; border-radius:50%;
-    }
-    .details-slider .prev { left:10px; }
-    .details-slider .next { right:10px; }
-
-    /* --- Contact Section --- */
-    .contact-form { max-width:500px; margin:auto; }
-    .contact-form input, .contact-form textarea {
-      width:100%; padding:10px; margin:8px 0; border:none; border-radius:6px;
-    }
-    .map { margin-top:20px; }
-
-/* Products Section */
-.products-wrapper {
-  display: flex;
-  align-items: center;       /* Vertical center */
-  justify-content: center;
-  gap: 20px;
-  min-height: 100vh;         /* Full viewport height */
+    /* Background slideshow */
+    /* Replace your body::before block with this */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150%; /* make wider for sliding */
+  height: 100%;
+  background: url('images/WC_BG1.jpg') repeat-x center/cover;
+  animation: slideBg 30s linear infinite;
+  z-index: -2;
+  filter: blur(6px) brightness(0.4);
 }
 
-/* Ad Banners */
-.ad-box {
-  width: 120px;
-  height: 480px;
-  background: rgba(255,140,0,0.2);
-  border: 2px dashed orange;
-  color: orange;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  text-align: center;
-  position: sticky;
-  top: 120px; /* stays below the fixed header */
+@keyframes slideBg {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 
-/* Product Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Always 3 per row */
-  gap: 20px;
-  max-width: 1000px; /* keep it centered */
-}
+    header{display:flex;align-items:center;justify-content:space-between;
+      padding:10px 40px;background:rgba(0,0,0,0.9);
+      position:fixed;top:0;left:0;width:100%;z-index:1000;
+      box-shadow:0 2px 6px rgba(0,0,0,0.6);}
+    header img.logo{height:50px;}
+    nav ul{display:flex;gap:20px;list-style:none;}
+    nav ul li a{padding:8px 14px;color:#fff;transition:0.3s;border-radius:6px;}
+    nav ul li a:hover,nav ul li a.active{background:orange;color:#000;}
 
+    section{padding:100px 40px 60px;}
+    h2{text-align:center;margin:40px 0;font-size:34px;color:orange;}
 
+    .page-wrapper{display:flex;gap:20px;}
+    .ad-box{width:120px;height:480px;background:rgba(255,140,0,0.15);
+      border:2px dashed #b35c00;color:orange;display:flex;align-items:center;
+      justify-content:center;font-size:14px;text-align:center;position:sticky;top:120px;}
 
-    /* --- Go To Top Button --- */
-    #goTopBtn {
-      display:none; position:fixed; bottom:30px; right:30px; z-index:99;
-      font-size:18px; border:none; background:orange; color:#000;
-      cursor:pointer; padding:12px 18px; border-radius:6px;
-      transition:opacity 0.5s ease; opacity:0;
-    }
-    #goTopBtn.show { display:block; opacity:1; }
+    .products-grid{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
 
-    /* --- Footer --- */
-    footer { background:#111; padding:20px 40px; }
-    .footer-container {
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    }
-    .footer-container .socials a { margin:0 8px; font-size:20px; color:orange; transition:0.3s; }
-    .footer-container .socials a:hover { color:#fff; }
-    .footer-container p { margin:0; text-align:center; flex:1; color:#aaa; }
+    .product-card{background:#111;border-radius:10px;box-shadow:0 0 10px rgba(255,140,0,0.4);overflow:hidden;position:relative;}
+    .product-card .slider{position:relative;overflow:hidden;height:200px;}
+    .product-card .slider img{width:100%;height:200px;object-fit:cover;display:none;}
+    .product-card .slider img.active{display:block;}
+    .slider .arrow{position:absolute;top:50%;transform:translateY(-50%);
+      background:rgba(0,0,0,0.5);color:#fff;padding:6px;cursor:pointer;}
+    .slider .arrow.left{left:10px;}
+    .slider .arrow.right{right:10px;}
+
+    .ribbon{width:150px;background:red;color:#fff;text-align:center;font-weight:bold;
+      position:absolute;top:15px;left:-40px;transform:rotate(-45deg);box-shadow:0 0 3px rgba(0,0,0,0.5);}
+
+    .product-card .info{padding:15px;}
+    .product-card h3{margin-bottom:8px;color:orange;}
+    .product-card p{font-size:14px;color:#ccc;margin-bottom:6px;}
+    .product-card button{background:orange;color:#000;padding:8px 14px;border:none;border-radius:6px;cursor:pointer;transition:0.3s;}
+    .product-card button:hover{background:#fff;color:orange;}
+
+    #contact form{max-width:500px;margin:0 auto;background:#111;padding:20px;border-radius:10px;}
+    #contact label{display:block;margin:8px 0 4px;}
+    #contact input,#contact textarea{width:100%;padding:8px;margin-bottom:10px;border:none;border-radius:6px;}
+    #contact button{background:orange;color:#000;padding:10px 18px;border:none;border-radius:6px;cursor:pointer;transition:0.3s;}
+    #contact button:hover{background:#fff;color:orange;}
+    #contact iframe{margin-top:20px;width:100%;height:300px;border:none;}
+
+    footer{background:#111;padding:20px 40px;}
+    .footer-container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+    .footer-container .socials a{margin:0 8px;font-size:20px;color:orange;transition:0.3s;}
+    .footer-container .socials a:hover{color:#fff;}
+    .footer-container p{margin:0;text-align:center;flex:1;color:#aaa;}
+
+    #goTopBtn{display:none;position:fixed;bottom:30px;right:30px;z-index:99;
+      font-size:18px;border:none;background:orange;color:#000;cursor:pointer;
+      padding:12px 18px;border-radius:6px;transition:opacity 0.5s ease;opacity:0;}
+    #goTopBtn.show{display:block;opacity:1;}
   </style>
 </head>
 <body>
 
-  <!-- Background Slideshow -->
-  <div class="slideshow">
-    <img src="images/WC_BG1.jpg" class="active" />
-    <img src="images/WC_BG2.jpg" />
-  </div>
-
-  <!-- Header -->
   <header>
-    <img src="images/war_computer_ logo.png" alt="Logo" class="logo" />
+    <img src="images/logo.png" alt="Logo" class="logo" />
     <nav>
-  <ul>
-    <li><a href="#home" class="active">Home</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#contact">Contact Us</a></li>
-    <li><a href="admin.html">Admin</a></li> <!-- ✅ New -->
-  </ul>
-</nav>
-
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Home -->
   <section id="home">
-    <h2>Welcome to War <br> Computers</h2>
-    <p style="text-align:center; max-width:600px; margin:auto;">
-      Your one-stop shop for the best computer systems, accessories, and professional services.
-    </p>
+    <h2>Welcome to War Computers</h2>
+    <p style="text-align:center;max-width:600px;margin:0 auto;">Your trusted source for laptops and computers.</p>
   </section>
 
-  <!-- Products -->
-<section id="products">
-  <h2>Our Products</h2>
-  <div class="products-wrapper">
-    
-    <!-- Left Banner -->
-    <div class="ad-box left-ad">Banner</div>
-    
-    <!-- Product Grid -->
-    <div class="grid">
-      <!-- Product Cards (12 total, here showing 3, copy/modify for 12) -->
-      <div class="card">
-        <img src="images/acer01.jpg" alt="Acer Chromebook">
-        <h3>Acer Chromebook</h3>
-        <p>Model: CB3-431</p>
-        <p>Specs: 14" Display, 4GB RAM, 16GB SSD</p>
-        <p class="price">Rs. 1200</p>
-        <button class="details-btn"
-          data-name="Acer Chromebook"
-          data-model="CB3-431"
-          data-specs="14'' Display, 4GB RAM, 16GB SSD"
-          data-price="1200"
-          data-images="images/acer01.jpg,images/acer02.jpg,images/acer03.jpg,images/acer04.jpg,images/acer05.jpg">Details</button>
-      </div>
-
-      <div class="card">
-        <img src="images/ctl01.jpg" alt="CTL Chromebook">
-        <h3>CTL Chromebook</h3>
-        <p>Model: </p>
-        <p>Specs: 2GB, 16GB, 11.6" Display</p>
-        <p class="price">Rs. 3,500 (With Charger)</p>
-        <button class="details-btn"
-          data-name="CTL Chromebook"
-          data-model=""
-          data-specs="2GB, 16GB, 11.6 Display"
-          data-price="3,500 (With Charger)"
-          data-images="images/ctl01.jpg,images/ctl02.jpg,images/ctl03.jpg,images/ctl04.jpg">Details</button>
-      </div>
-
-      <div class="card">
-        <img src="images/hp1401.jpg" alt="HP Chromebook">
-        <h3>HP Chromebook</h3>
-        <p>Model:</p>
-        <p>Specs: 4GB, 64GB, 14" Display<br>
-		   Good Battery Backup<br> 
-		   Good for Online Work, Data Entry<br> 
-		   Digital Marketing, Learning & Online Courses.</p>
-        <p class="price">Rs. 18,000 (With Adapter)</p>
-        <button class="details-btn"
-          data-name="HP Chromebook"
-          data-model=""
-          data-specs="4GB, 64GB, 14 Display,
-		  Good Battery Backup,
-		  Good for Online Work & Data Entry"
-          data-price="18,000 (With Adapter)"
-          data-images="images/hp1401.jpg,images/hp1402.jpg,images/hp1403.jpg,images/hp1404.jpg">Details</button>
-      </div>
-
-      <!-- Duplicate and update cards up to 12 total -->
-      <div class="card"><img src="images/p4.jpg"><h3>Product 4</h3><p>Specs</p><p class="price">Rs. 4000</p><button class="details-btn" data-name="Product 4">Details</button></div>
-      <div class="card"><img src="images/p5.jpg"><h3>Product 5</h3><p>Specs</p><p class="price">Rs. 5000</p><button class="details-btn" data-name="Product 5">Details</button></div>
-      <div class="card"><img src="images/p6.jpg"><h3>Product 6</h3><p>Specs</p><p class="price">Rs. 6000</p><button class="details-btn" data-name="Product 6">Details</button></div>
-      <div class="card"><img src="images/p7.jpg"><h3>Product 7</h3><p>Specs</p><p class="price">Rs. 7000</p><button class="details-btn" data-name="Product 7">Details</button></div>
-      <div class="card"><img src="images/p8.jpg"><h3>Product 8</h3><p>Specs</p><p class="price">Rs. 8000</p><button class="details-btn" data-name="Product 8">Details</button></div>
-      <div class="card"><img src="images/p9.jpg"><h3>Product 9</h3><p>Specs</p><p class="price">Rs. 9000</p><button class="details-btn" data-name="Product 9">Details</button></div>
-      <div class="card"><img src="images/p10.jpg"><h3>Product 10</h3><p>Specs</p><p class="price">Rs. 10000</p><button class="details-btn" data-name="Product 10">Details</button></div>
-      <div class="card"><img src="images/p11.jpg"><h3>Product 11</h3><p>Specs</p><p class="price">Rs. 11000</p><button class="details-btn" data-name="Product 11">Details</button></div>
-      <div class="card"><img src="images/p12.jpg"><h3>Product 12</h3><p>Specs</p><p class="price">Rs. 12000</p><button class="details-btn" data-name="Product 12">Details</button></div>
+  <section id="products">
+    <h2>Products</h2>
+    <div class="page-wrapper">
+      <div class="ad-box">Banner</div>
+      <div class="products-grid" id="productsGrid"></div>
+      <div class="ad-box">Banner</div>
     </div>
-    
-    <!-- Right Banner -->
-    <div class="ad-box right-ad">Banner</div>
+  </section>
 
-  </div>
-</section>
-
-    
-    <!-- Right Ad Box -->
-    <div class="ad-box right-ad">Ad</div>
-
-  </div>
-</section>
-
-
-  <!-- Contact -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <div class="contact-form">
-      <form id="contactForm">
-        <input type="text" id="cname" placeholder="Your Name" required />
-        <input type="text" id="cphone" placeholder="Your Phone" required />
-        <textarea id="cmessage" rows="4" placeholder="Your Message"></textarea>
-        <button type="submit" class="details-btn">Send on WhatsApp</button>
-      </form>
-      <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18..." width="100%" height="250" style="border:0;" allowfullscreen=""></iframe>
-      </div>
-    </div>
+    <form id="contactForm">
+      <label>Product Name</label>
+      <input type="text" id="cproduct" readonly />
+      <label>Your Name</label>
+      <input type="text" id="cname" required />
+      <label>Contact No</label>
+      <input type="text" id="cphone" required />
+      <label>Message</label>
+      <textarea id="cmsg" rows="3"></textarea>
+      <button type="submit">Send on WhatsApp</button>
+    </form>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." allowfullscreen></iframe>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-container">
       <div class="socials">
@@ -282,177 +138,88 @@
         <a href="#"><i class="fab fa-linkedin"></i></a>
         <a href="#"><i class="fab fa-whatsapp"></i></a>
       </div>
-      <p>&copy; 2025 War Computers. All Rights Reserved.</p>
+      <p>&copy; 2025 War Computers</p>
       <button id="goTopBtn">↑ Top</button>
     </div>
   </footer>
 
-  <!-- Details Modal -->
-  <div class="modal" id="detailsModal">
-    <div class="modal-content">
-      <span class="close" id="closeDetails">&times;</span>
-      <div class="details-slider">
-        <button class="arrow prev" id="prevImg">&#10094;</button>
-        <button class="arrow next" id="nextImg">&#10095;</button>
-        <div id="detailsImages"></div>
-      </div>
-      <h3 id="detailsName"></h3>
-      <p><b>Model:</b> <span id="detailsModel"></span></p>
-      <p><b>Specification:</b> <span id="detailsSpecs"></span></p>
-      <p><b>Price:</b> Rs. <span id="detailsPrice"></span></p>
-      <button class="details-btn" id="openBuyModal">Buy Now</button>
-    </div>
-  </div>
-
-  <!-- Buy Modal -->
-  <div class="modal" id="buyModal">
-    <div class="modal-content">
-      <span class="close" id="closeBuy">&times;</span>
-      <h3>Buy Now</h3>
-      <form id="buyForm">
-        <label>Product</label>
-        <input type="text" id="buyProduct" readonly />
-        <label>Model</label>
-        <input type="text" id="buyModel" readonly />
-        <label>Price</label>
-        <input type="text" id="buyPrice" readonly />
-        <label>Your Name</label>
-        <input type="text" id="buyerName" required />
-        <label>Contact No</label>
-        <input type="text" id="buyerPhone" required />
-        <button type="submit" class="details-btn">Send on WhatsApp</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- JS -->
   <script>
-  // --- Background Slideshow ---
-  const slides = document.querySelectorAll('.slideshow img');
-  let current = 0;
-  setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current+1) % slides.length;
-    slides[current].classList.add('active');
-  }, 5000);
+  // Scroll spy
+  const sections=document.querySelectorAll("section");
+  const navLinks=document.querySelectorAll("nav ul li a");
+  window.addEventListener("scroll",()=>{
+    let cur="";
+    sections.forEach(sec=>{
+      const top=window.scrollY;
+      const offset=sec.offsetTop-120;
+      const height=sec.offsetHeight;
+      if(top>=offset && top<offset+height){cur=sec.getAttribute("id");}
+    });
+    navLinks.forEach(a=>{
+      a.classList.remove("active");
+      if(a.getAttribute("href")==="#"+cur){a.classList.add("active");}
+    });
+  });
 
-  // --- Details Modal ---
-  const detailsModal = document.getElementById("detailsModal");
-  const buyModal = document.getElementById("buyModal");
-  const openBuyModalBtn = document.getElementById("openBuyModal");
+  // Go To Top
+  const goTop=document.getElementById("goTopBtn");
+  window.onscroll=()=>{if(document.documentElement.scrollTop>200){goTop.classList.add("show");}else{goTop.classList.remove("show");}};
+  goTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 
-  const detailsName = document.getElementById("detailsName");
-  const detailsModel = document.getElementById("detailsModel");
-  const detailsSpecs = document.getElementById("detailsSpecs");
-  const detailsPrice = document.getElementById("detailsPrice");
-  const detailsImagesContainer = document.getElementById("detailsImages");
+  // Load products from localStorage
+  const productsGrid=document.getElementById("productsGrid");
+  function loadProducts(){
+    productsGrid.innerHTML="";
+    const products=JSON.parse(localStorage.getItem("products"))||[];
+    products.forEach((p,idx)=>{
+      const card=document.createElement("div");
+      card.className="product-card";
+      card.innerHTML=`
+        ${p.offer?'<div class="ribbon">Special Offer</div>':""}
+        <div class="slider" data-index="${idx}">
+          ${p.images.map((img,i)=>`<img src="images/${img}" class="${i===0?'active':''}">`).join("")}
+          <div class="arrow left">&#10094;</div>
+          <div class="arrow right">&#10095;</div>
+        </div>
+        <div class="info">
+          <h3>${p.name}</h3>
+          <p><strong>Model:</strong> ${p.model}</p>
+          <p><strong>Specs:</strong> ${p.specs}</p>
+          <p><strong>Price:</strong> ${p.price}</p>
+          <button onclick="buyNow('${p.name}')">Buy Now</button>
+        </div>`;
+      productsGrid.appendChild(card);
+    });
+  }
+  loadProducts();
 
-  let detailImgs = [];
-  let currentImgIndex = 0;
-
-  document.querySelectorAll(".details-btn[data-name]").forEach(btn=>{
-    btn.onclick = () => {
-      detailsName.textContent = btn.dataset.name;
-      detailsModel.textContent = btn.dataset.model;
-      detailsSpecs.textContent = btn.dataset.specs;
-      detailsPrice.textContent = btn.dataset.price;
-
-      detailsImagesContainer.innerHTML = "";
-      detailImgs = btn.dataset.images.split(",");
-      detailImgs.forEach((src, index)=>{
-        let img = document.createElement("img");
-        img.src = src.trim();
-        if(index===0) img.classList.add("active");
-        detailsImagesContainer.appendChild(img);
-      });
-      currentImgIndex = 0;
-
-      detailsModal.style.display = "flex";
+  // Slider controls
+  document.addEventListener("click",function(e){
+    if(e.target.classList.contains("arrow")){
+      const slider=e.target.closest(".slider");
+      const imgs=slider.querySelectorAll("img");
+      let idx=[...imgs].findIndex(img=>img.classList.contains("active"));
+      imgs[idx].classList.remove("active");
+      if(e.target.classList.contains("left")){idx=(idx-1+imgs.length)%imgs.length;}
+      else{idx=(idx+1)%imgs.length;}
+      imgs[idx].classList.add("active");
     }
   });
 
-  document.getElementById("closeDetails").onclick = () => detailsModal.style.display="none";
-  window.addEventListener("click", e => { if(e.target==detailsModal) detailsModal.style.display="none"; });
-
-  // Slider arrows
-  document.getElementById("prevImg").onclick = () => changeImage(-1);
-  document.getElementById("nextImg").onclick = () => changeImage(1);
-
-  function changeImage(step){
-    const imgs = detailsImagesContainer.querySelectorAll("img");
-    imgs[currentImgIndex].classList.remove("active");
-    currentImgIndex = (currentImgIndex+step+imgs.length)%imgs.length;
-    imgs[currentImgIndex].classList.add("active");
+  // WhatsApp integration
+  function buyNow(product){
+    document.getElementById("cproduct").value=product;
+    document.getElementById("contact").scrollIntoView({behavior:"smooth"});
   }
-
-  // --- Open Buy Modal from Details ---
-  openBuyModalBtn.onclick = () => {
-    document.getElementById("buyProduct").value = detailsName.textContent;
-    document.getElementById("buyModel").value = detailsModel.textContent;
-    document.getElementById("buyPrice").value = detailsPrice.textContent;
-    detailsModal.style.display="none";
-    buyModal.style.display="flex";
+  document.getElementById("contactForm").onsubmit=function(e){
+    e.preventDefault();
+    const product=document.getElementById("cproduct").value;
+    const name=document.getElementById("cname").value;
+    const phone=document.getElementById("cphone").value;
+    const msg=document.getElementById("cmsg").value;
+    const text=`Product: ${product}%0AName: ${name}%0APhone: ${phone}%0AMessage: ${msg}`;
+    window.open(`https://wa.me/923330360487?text=${text}`,"_blank"); // change number
   };
-
-  document.getElementById("closeBuy").onclick = () => buyModal.style.display="none";
-  window.addEventListener("click", e => { if(e.target==buyModal) buyModal.style.display="none"; });
-
-  // --- WhatsApp Number ---
-  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
-
-  // --- Buy Form Submission ---
-  document.getElementById("buyForm").onsubmit = function(e){
-    e.preventDefault();
-    const msg =
-      "Product: "+document.getElementById("buyProduct").value+"\n"+
-      "Model: "+document.getElementById("buyModel").value+"\n"+
-      "Price: "+document.getElementById("buyPrice").value+"\n"+
-      "Buyer: "+document.getElementById("buyerName").value+"\n"+
-      "Contact: "+document.getElementById("buyerPhone").value;
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
-  }
-
-  // --- Contact Form Submission ---
-  document.getElementById("contactForm").onsubmit = function(e){
-    e.preventDefault();
-    const msg =
-      "Buyer: "+document.getElementById("cname").value+"\n"+
-      "Contact: "+document.getElementById("cphone").value+"\n"+
-      "Message: "+document.getElementById("cmessage").value;
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
-  }
-
-  // --- Go To Top Button ---
-  const goTopBtn = document.getElementById("goTopBtn");
-  window.addEventListener("scroll", () => {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      goTopBtn.classList.add("show");
-    } else {
-      goTopBtn.classList.remove("show");
-    }
-  });
-  goTopBtn.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
-
-  // --- Scroll Spy ---
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll("nav ul li a");
-  window.addEventListener("scroll", () => {
-    let current = "";
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
-      if(pageYOffset >= sectionTop) current = section.getAttribute("id");
-    });
-    navLinks.forEach(link => {
-      link.classList.remove("active");
-      if(link.getAttribute("href") === "#" + current) link.classList.add("active");
-    });
-  });
-  navLinks.forEach(link => {
-    link.addEventListener("click", function(e){
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
-    });
-  });
   </script>
 </body>
 </html>
