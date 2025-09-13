@@ -10,25 +10,22 @@
     body{background:#000;color:#fff;overflow-x:hidden;}
 
     /* Background Slideshow */
-    /* Replace your body::before block with this */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 150%; /* make wider for sliding */
-  height: 100%;
-  background: url('images/WC_BG1.jpg') repeat-x center/cover;
-  animation: slideBg 30s linear infinite;
-  z-index: -2;
-  filter: blur(6px) brightness(0.4);
-}
-
-@keyframes slideBg {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: url('images/WC_BG1.jpg') repeat-x center/cover;
+      animation: slideBg 30s linear infinite;
+      z-index: -2;
+      filter: blur(6px) brightness(0.4);
+    }
+    @keyframes slideBg {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
     header{display:flex;align-items:center;justify-content:space-between;
       padding:10px 40px;background:rgba(0,0,0,0.9);
@@ -155,6 +152,29 @@ body::before {
   </footer>
 
   <script>
+  // ✅ Preloaded JSON products
+  const demoProducts = [
+    {
+      name: "HP Chromebook",
+      model: "14a-na1003dx",
+      specs: "Intel Celeron N4020, 4GB RAM, 64GB eMMC, ChromeOS",
+      price: "$249",
+      images: ["images/hp1.jpg","images/hp2.jpg"],
+      offer: true
+    },
+    {
+      name: "Dell Inspiron",
+      model: "15 3511",
+      specs: "Intel i3-1115G4, 8GB RAM, 256GB SSD, Windows 11",
+      price: "$499",
+      images: ["images/dell1.jpg","images/dell2.jpg"],
+      offer: false
+    }
+  ];
+  if(!localStorage.getItem("products")){
+    localStorage.setItem("products", JSON.stringify(demoProducts));
+  }
+
   // Go To Top
   const goTop=document.getElementById("goTopBtn");
   window.onscroll=()=>{if(document.documentElement.scrollTop>200){goTop.classList.add("show");}else{goTop.classList.remove("show");}};
@@ -182,6 +202,8 @@ body::before {
   }
   loadProducts();
 
+  let editIndex=-1;
+
   // Save product
   document.getElementById("adminForm").onsubmit=function(e){
     e.preventDefault();
@@ -194,75 +216,44 @@ body::before {
       images:document.getElementById("pimages").value.split(",").map(i=>i.trim()).filter(i=>i),
       offer:document.getElementById("poffer").checked
     };
-    products.push(product);
+
+    if(editIndex===-1){
+      products.push(product);
+      alert("✅ Product Added!");
+    } else {
+      products[editIndex]=product;
+      alert("✏️ Product Updated!");
+      editIndex=-1;
+      document.querySelector("#adminForm button[type='submit']").textContent="Save Product";
+    }
+
     localStorage.setItem("products",JSON.stringify(products));
     this.reset();
     loadProducts();
-    alert("✅ Product Saved!");
   };
 
-  // Track editing index
-let editIndex = -1;
-
-// Save product (Add or Update)
-document.getElementById("adminForm").onsubmit = function(e){
-  e.preventDefault();
-  const products = JSON.parse(localStorage.getItem("products")) || [];
-
-  const product = {
-    name: document.getElementById("pname").value,
-    model: document.getElementById("pmodel").value,
-    specs: document.getElementById("pspecs").value,
-    price: document.getElementById("pprice").value,
-    images: document.getElementById("pimages").value.split(",").map(i=>i.trim()).filter(i=>i),
-    offer: document.getElementById("poffer").checked
-  };
-
-  if(editIndex === -1){
-    // Add new
-    products.push(product);
-    alert("✅ Product Added!");
-  } else {
-    // Update existing
-    products[editIndex] = product;
-    alert("✏️ Product Updated!");
-    editIndex = -1;
-    document.querySelector("#adminForm button[type='submit']").textContent = "Save Product";
-  }
-
-  localStorage.setItem("products", JSON.stringify(products));
-  this.reset();
-  loadProducts();
-};
-
-// Edit/Delete (localStorage only)
-document.addEventListener("click", function(e){
-  const products = JSON.parse(localStorage.getItem("products")) || [];
-
-  if(e.target.classList.contains("delete-btn")){
-    const i = e.target.dataset.index;
-    products.splice(i, 1);
-    localStorage.setItem("products", JSON.stringify(products));
-    loadProducts();
-  }
-
-  if(e.target.classList.contains("edit-btn")){
-    const i = e.target.dataset.index;
-    const p = products[i];
-
-    // Fill form with product data
-    document.getElementById("pname").value = p.name;
-    document.getElementById("pmodel").value = p.model;
-    document.getElementById("pspecs").value = p.specs;
-    document.getElementById("pprice").value = p.price;
-    document.getElementById("pimages").value = p.images.join(",");
-    document.getElementById("poffer").checked = p.offer;
-
-    editIndex = i; // set edit mode
-    document.querySelector("#adminForm button[type='submit']").textContent = "Update Product";
-  }
-});
-
+  // Edit/Delete
+  document.addEventListener("click",function(e){
+    const products=JSON.parse(localStorage.getItem("products"))||[];
+    if(e.target.classList.contains("delete-btn")){
+      const i=e.target.dataset.index;
+      products.splice(i,1);
+      localStorage.setItem("products",JSON.stringify(products));
+      loadProducts();
+    }
+    if(e.target.classList.contains("edit-btn")){
+      const i=e.target.dataset.index;
+      const p=products[i];
+      document.getElementById("pname").value=p.name;
+      document.getElementById("pmodel").value=p.model;
+      document.getElementById("pspecs").value=p.specs;
+      document.getElementById("pprice").value=p.price;
+      document.getElementById("pimages").value=p.images.join(",");
+      document.getElementById("poffer").checked=p.offer;
+      editIndex=i;
+      document.querySelector("#adminForm button[type='submit']").textContent="Update Product";
+    }
+  });
   </script>
 </body>
 </html>
