@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel — War Computers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../style.css">
+<style>
+body { background:#111; color:#fff; font-family:Arial, sans-serif; }
+
+.admin-container {
+  max-width:1000px; margin:140px auto; background:rgba(0,0,0,0.8);
+  padding:30px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.7);
+}
+.admin-container h2 { text-align:center; color:#f90; margin-bottom:20px; }
+.table { width:100%; border-collapse:collapse; color:#fff; margin-bottom:20px; }
+.table th, .table td { border:1px solid #444; padding:8px; text-align:center; }
+.table th { background:#222; color:#f90; }
+button {
+  background:#f90; border:none; padding:6px 12px; border-radius:4px;
+  cursor:pointer; color:#111; font-weight:bold;
+}
+button:hover { background:#ffb84d; }
+input, textarea, select {
+  width:100%; padding:6px; border:none; border-radius:4px;
+}
+form { margin-top:15px; display:grid; gap:8px; }
+.image-preview {
+  width:120px; height:80px; object-fit:cover; border-radius:6px;
+  border:1px solid #333; display:none; margin-top:6px;
+}
+hr { margin:40px 0; border:0; border-top:1px solid #333; }
+.export-section { text-align:center; padding:30px 0; }
+.export-section h2 { color:#f90; margin-bottom:20px; }
+.export-section button { margin:10px; padding:10px 20px; font-size:1rem; }
+
+/* --- Sticky Section Headers --- */
+.section-label {
+  background:#222;
+  color:#ffb84d;
+  text-align:center;
+  font-weight:bold;
+  border-top:2px solid #f90;
+  padding:6px 0;
+  font-size:1rem;
+  position:sticky;
+  top:100px; /* Adjusted for your fixed navbar */
+  z-index:2;
+  box-shadow:0 2px 3px rgba(0,0,0,0.4);
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <img src="../images/logo/logo.png" class="logo" alt="">
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#banners">Banners</a></li>
+      <li><a href="#export">Export Data</a></li>
+    </ul>
+  </nav>
+</header>
+
+<select id="productType">
+  <option value="special">Special Offer</option>
+  <option value="regular">Other Products</option>
+</select>
+
+
+<!-- PRODUCTS SECTION -->
+<div class="admin-container" id="products">
+  <h2>Manage Products</h2>
+  <table class="table" id="productTable">
+    <thead><tr><th>Title</th><th>Model</th><th>Specs</th><th>Price</th><th>Image</th><th>Actions</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Add / Edit Product</h3>
+  <form id="productForm">
+    <input type="hidden" id="editIndex">
+    <select id="productCategory" required>
+      <option value="special">Special Offer</option>
+      <option value="regular">Other Products</option>
+    </select>
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="model" placeholder="Model" required>
+    <textarea id="specs" placeholder="Specs"></textarea>
+    <input type="text" id="price" placeholder="Price" required>
+    <input type="file" id="imageFile" accept="image/*">
+    <input type="text" id="image" placeholder="Paste GitHub Image URL (or upload)">
+    <img id="imagePreview" class="image-preview" alt="Preview">
+    <button type="submit">Save Product</button>
+  </form>
+</div>
+
+<hr>
+
+<!-- BANNERS SECTION -->
+<div class="admin-container" id="banners">
+  <h2>Manage Banners</h2>
+  <table class="table" id="bannerTable">
+    <thead><tr><th>Key</th><th>Image</th><th>Actions</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Add / Edit Banner</h3>
+  <form id="bannerForm">
+    <input type="hidden" id="bannerKey">
+    <input type="text" id="bannerImage" placeholder="Paste GitHub Image URL">
+    <img id="bannerPreview" class="image-preview" alt="Preview">
+    <input type="file" id="bannerFile" accept="image/*">
+    <button type="submit">Save Banner</button>
+  </form>
+</div>
+
+<hr>
+
+<!-- EXPORT SECTION -->
+<div class="admin-container export-section" id="export">
+  <h2>Export Data</h2>
+  <p>Click below to download your updated JSON files:</p>
+  <button id="exportProductsBtn">⬇ Export Products (products.json)</button>
+  <button id="exportBannersBtn">⬇ Export Banners (banners.json)</button>
+</div>
+
+<script>
+/* -----------------------------
+   Data Initialization
+------------------------------ */
+let productsData = JSON.parse(localStorage.getItem("products")) || { special: [], regular: [] };
+let bannersData = JSON.parse(localStorage.getItem("banners")) || { home: "images/banners/01.jpg" };
+
+/* -----------------------------
+   Product Rendering
+------------------------------ */
+function renderProducts() {
+  const tbody = document.querySelector("#productTable tbody");
+  tbody.innerHTML = "";
+
+  // SPECIAL OFFERS
+  if (productsData.special.length > 0) {
+    tbody.innerHTML += `<tr><td colspan="6" class="section-label">🔥 SPECIAL OFFERS</td></tr>`;
+    productsData.special.forEach((p, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${p.title}</td>
+          <td>${p.model}</td>
+          <td>${p.specs}</td>
+          <td>${p.price}</td>
+          <td><img src="${p.image}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;"></td>
+          <td>
+            <button onclick="editProduct('special', ${i})">Edit</button>
+            <button onclick="deleteProduct('special', ${i})">Delete</button>
+          </td>
+        </tr>`;
+    });
+  }
+
+  // OTHER PRODUCTS
+  if (productsData.regular.length > 0) {
+    tbody.innerHTML += `<tr><td colspan="6" class="section-label">💼 OTHER PRODUCTS</td></tr>`;
+    productsData.regular.forEach((p, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${p.title}</td>
+          <td>${p.model}</td>
+          <td>${p.specs}</td>
+          <td>${p.price}</td>
+          <td><img src="${p.image}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;"></td>
+          <td>
+            <button onclick="editProduct('regular', ${i})">Edit</button>
+            <button onclick="deleteProduct('regular', ${i})">Delete</button>
+          </td>
+        </tr>`;
+    });
+  }
+}
+
+/* -----------------------------
+   Product CRUD
+------------------------------ */
+const categorySelect = document.getElementById("productCategory");
+const titleInput = document.getElementById("title");
+const modelInput = document.getElementById("model");
+const specsInput = document.getElementById("specs");
+const priceInput = document.getElementById("price");
+const imageInput = document.getElementById("image");
+const imageFile = document.getElementById("imageFile");
+const imagePreview = document.getElementById("imagePreview");
+const editIndex = document.getElementById("editIndex");
+
+imageFile.addEventListener("change", function(){
+  const file = this.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = e => {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = "block";
+      imageInput.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById("productForm").onsubmit = e => {
+  e.preventDefault();
+  const obj = {
+    title: titleInput.value,
+    model: modelInput.value,
+    specs: specsInput.value,
+    price: priceInput.value,
+    image: imageInput.value
+  };
+
+  const idx = editIndex.value;
+  if(idx){ productsData.regular[idx] = obj; editIndex.value=""; }
+  else productsData.regular.push(obj);
+
+  localStorage.setItem("products", JSON.stringify(productsData));
+  renderProducts();
+  e.target.reset();
+  imagePreview.style.display = "none";
+};
+
+
+function editProduct(category, i){
+  const p = productsData[category][i];
+  categorySelect.value = category;
+  titleInput.value = p.title;
+  modelInput.value = p.model;
+  specsInput.value = p.specs;
+  priceInput.value = p.price;
+  imageInput.value = p.image;
+  imagePreview.src = p.image;
+  imagePreview.style.display = "block";
+  editIndex.value = i;
+}
+
+function deleteProduct(category, i){
+  if(confirm("Delete this product?")){
+    productsData[category].splice(i,1);
+    localStorage.setItem("products", JSON.stringify(productsData));
+    renderProducts();
+  }
+}
+
+/* -----------------------------
+   Banners CRUD (same)
+------------------------------ */
+const bannerKey = document.getElementById("bannerKey");
+const bannerImage = document.getElementById("bannerImage");
+const bannerFile = document.getElementById("bannerFile");
+const bannerPreview = document.getElementById("bannerPreview");
+
+bannerFile.addEventListener("change", function(){
+  const file = this.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = e => {
+      bannerPreview.src = e.target.result;
+      bannerPreview.style.display = "block";
+      bannerImage.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById("bannerForm").onsubmit = e => {
+  e.preventDefault();
+  const key = bannerKey.value || prompt("Enter banner key (e.g. home, special, hero1):");
+  bannersData[key] = bannerImage.value;
+  localStorage.setItem("banners", JSON.stringify(bannersData));
+  renderBanners();
+  e.target.reset();
+  bannerPreview.style.display = "none";
+};
+
+function renderBanners() {
+  const tbody = document.querySelector("#bannerTable tbody");
+  tbody.innerHTML = "";
+  Object.keys(bannersData).forEach(k=>{
+    tbody.innerHTML += `
+      <tr>
+        <td>${k}</td>
+        <td><img src="${bannersData[k]}" style="width:120px;height:70px;object-fit:cover;border-radius:4px;"></td>
+        <td>
+          <button onclick="editBanner('${k}')">Edit</button>
+          <button onclick="deleteBanner('${k}')">Delete</button>
+        </td>
+      </tr>`;
+  });
+}
+
+function editBanner(k){
+  bannerKey.value = k;
+  bannerImage.value = bannersData[k];
+  bannerPreview.src = bannersData[k];
+  bannerPreview.style.display = "block";
+}
+
+function deleteBanner(k){
+  if(confirm("Delete this banner?")){
+    delete bannersData[k];
+    localStorage.setItem("banners", JSON.stringify(bannersData));
+    renderBanners();
+  }
+}
+
+/* -----------------------------
+   Export Buttons
+------------------------------ */
+function downloadJSON(data, filename){
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
+document.getElementById("exportProductsBtn").addEventListener("click", ()=>downloadJSON(productsData, "products.json"));
+document.getElementById("exportBannersBtn").addEventListener("click", ()=>downloadJSON(bannersData, "banners.json"));
+
+/* -----------------------------
+   INIT
+------------------------------ */
+renderProducts();
+renderBanners();
+
+document.getElementById("productForm").onsubmit = e => {
+  e.preventDefault();
+  const obj = {
+    title: titleInput.value,
+    model: modelInput.value,
+    specs: specsInput.value,
+    price: priceInput.value,
+    image: imageInput.value
+  };
+
+  const idx = editIndex.value;
+  if(idx){ productsData.regular[idx] = obj; editIndex.value=""; }
+  else productsData.regular.push(obj);
+
+  localStorage.setItem("products", JSON.stringify(productsData));
+  renderProducts();
+  e.target.reset();
+  imagePreview.style.display = "none";
+};
+
+</script>
+</body>
+</html>

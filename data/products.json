@@ -1,0 +1,26 @@
+[
+  {
+    "name": "HP Chromebook",
+    "model": "14a-na1003dx",
+    "specs": "Intel Celeron, 4GB RAM, 64GB eMMC",
+    "price": "$249",
+    "image": "images/hp1.jpg",
+    "offer": true
+  },
+  {
+    "name": "Dell Inspiron",
+    "model": "15 3511",
+    "specs": "Intel i3, 8GB RAM, 256GB SSD",
+    "price": "$499",
+    "image": "images/dell1.jpg",
+    "offer": false
+  },
+  {
+    "name": "HP EliteBook",
+    "model": "840 G7",
+    "specs": "Intel i5, 16GB RAM, 512GB SSD",
+    "price": "$799",
+    "image": "images/hp2.jpg",
+    "offer": false
+  }
+]
