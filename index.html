@@ -4,12 +4,165 @@
   <meta charset="UTF-8">
   <title>War Computer — Best Chromebook Prices in Karachi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FontAwesome for Social Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     /* Reset */
     * {margin: 0; padding: 0; box-sizing: border-box;}
     body {font-family: Arial, sans-serif; color: #fff; background: #111;}
 
-    /* Background Slideshow - Home */
+    /* Background Slideshow */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 400%; height: 100%;
+      background: url('images/WC_BG1.jpg') repeat-x center/cover;
+      animation: slideBg 60s linear infinite;
+      z-index: -1;
+      filter: blur(6px) brightness(0.4);
+    }
+    @keyframes slideBg {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+    }
+    header img.logo {height: 40px;}
+    header nav ul {list-style: none; display: flex; gap: 25px;}
+    header nav ul li a {
+      color: #fff; text-decoration: none; font-weight: bold;
+      transition: color 0.3s;
+    }
+    header nav ul li a:hover {color: #f90;}
+
+    /* Sections */
+    section {padding: 100px 20px; margin-top: 60px;}
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 0 6px rgba(0,0,0,0.8);
+      color: #f90;
+    }
+    .section-box {
+      background: rgba(0,0,0,0.65);
+      padding: 40px;
+      border-radius: 10px;
+      max-width: 1100px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {transform: translateY(-5px); box-shadow: 0 0 15px rgba(0,0,0,0.8);}
+    .product-card img {
+      max-width: 100%; height: 180px; object-fit: cover; border-radius: 6px;
+    }
+    .product-card h3 {margin: 10px 0; font-size: 1.2rem; color:#f90;}
+    .product-card p {color: #ccc; font-size: 0.9rem; margin: 4px 0;}
+
+    /* Special Offer Ribbon */
+    .offer::before {
+      content: "Special Offer";
+      position: absolute; top: 12px; left: -40px;
+      background: #f90; color: #111; font-size: 0.75rem;
+      font-weight: bold; padding: 4px 40px;
+      transform: rotate(-45deg);
+      box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    }
+
+    /* Horizontal Banner */
+    .horizontal-banner {display: flex; justify-content: center; margin: 40px auto;}
+    .horizontal-banner img {
+      width: 240px; height: 120px; object-fit: cover;
+      border-radius: 6px; box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    /* Footer Layout */
+/* Footer Layout */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(0,0,0,0.85);
+  font-size: 0.9rem;
+}
+
+/* Left */
+.footer-left {
+  color: #f90;
+  font-weight: bold;
+}
+
+/* Center (inline copyright + icons) */
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  color: #fff;
+}
+.footer-center p {
+  margin: 0;
+}
+.social-icons a {
+  color: #f90;
+  margin: 0 5px;
+  font-size: 1.4rem; /* Bigger icons */
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: #fff;
+}
+
+/* Right */
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+}
+#goTopBtn {
+  background: #f90;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+#goTopBtn:hover {
+  background: #ffae33;
+}
+
+/* Background Slideshow - Home */
 #home {
   position: relative;
   min-height: 100vh;
@@ -51,131 +204,53 @@
   100% { opacity: 0; }
 }
 
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 40px;
-      z-index: 1000;
-      backdrop-filter: blur(6px);
-    }
-    header img.logo {
-      height: 40px;
-	  border-radius:8px;
-    }
-    header nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-    header nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    header nav ul li a:hover {
-      color: #f90;
-    }
-
-    /* Sections */
-    section {
-      padding: 100px 20px;
-      margin-top: 60px;
-    }
-    section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      text-shadow: 0 0 6px rgba(0,0,0,0.8);
-    }
-    .section-box {
-      background: rgba(0,0,0,0.65);
-      padding: 40px;
-      border-radius: 10px;
-	  border-bottom: 2px solid #f90;
-      max-width: 1100px;
-      margin: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    }
-
-    /* Products Grid */
-    /* Products Grid - Responsive */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* default desktop */
-  gap: 25px;
-  margin-top: 20px;
+/* Gradient Border Animation */
+:root {
+  --gradient-shadow: linear-gradient(
+    45deg,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000
+  );
 }
 
-@media (max-width: 900px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr); /* tablet */
-  }
+.product-card.shadow {
+  position: relative;
+  background: linear-gradient(0deg, #000, #262626);
+  z-index: 1;
 }
 
-@media (max-width: 600px) {
-  .products-grid {
-    grid-template-columns: 1fr; /* mobile */
-  }
+.product-card.shadow:before,
+.product-card.shadow:after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background: var(--gradient-shadow);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: animate 20s linear infinite;
+  border-radius: 8px;
 }
 
+.product-card.shadow:after {
+  filter: blur(20px);
+}
 
-    .product-card {
-      background: rgba(255,255,255,0.05);
-      padding: 15px;
-      border-radius: 8px;
-	  border-bottom: 2px solid #f90;
-      text-align: center;
-      position: relative;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0,0,0,0.8);
-    }
-    .product-card img {
-      max-width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-    .product-card h3 {
-      margin: 10px 0;
-      font-size: 1.2rem;
-    }
-    .product-card p {color: #ccc; font-size: 0.9rem; margin: 4px 0;}
-
-    /* Special Offer Ribbon */
-    .offer::before {
-      content: "Special Offer";
-      position: absolute;
-      top: 12px; left: -40px;
-      background: #f90;
-      color: #111;
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 4px 40px;
-      transform: rotate(-45deg);
-      box-shadow: 0 0 5px rgba(0,0,0,0.6);
-    }
-
-    /* Horizontal Banner */
-    .horizontal-banner {
-      display: flex;
-      justify-content: center;
-      margin: 40px auto;
-    }
-    .horizontal-banner img {
-      width: 240px; height: 120px;
-      object-fit: cover;
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
-    }
+@keyframes animate {
+  0% { background-position: 0 0; }
+  50% { background-position: 300% 0; }
+  100% { background-position: 0 0; }
+}
 
 /* Contact Form */
 .contact-form {
@@ -234,64 +309,12 @@
 }
 
 
-    /* Footer Layout */
-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background: rgba(0,0,0,0.85);
-  font-size: 0.9rem;
-  position: relative;
-}
-
-/* Left - Visitor Counter */
-.footer-left {
-  color: #f90;
-  font-weight: bold;
-}
-
-/* Center - Copyright + Social */
-.footer-center {
-  text-align: center;
-  flex: 1;
-}
-.footer-center p {
-  margin-bottom: 5px;
-}
-.social-icons a {
-  color: #f90;
-  margin: 8px;
-  font-size: 1.2rem;
-  transition: color 0.3s;
-}
-.social-icons a:hover {
-  color: #fff;
-}
-
-/* Right - Go Top Button */
-.footer-right {
-  position: relative;
-}
-#goTopBtn {
-  background: #f90;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-#goTopBtn:hover {
-  background: #ffae33;
-}
-
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
-    <img src="images/logo.png" alt="War Computers" class="logo">
+    <img src="images/logo/logo.png" alt="War Computers" class="logo">
     <nav>
       <ul>
         <li><a href="#home">Home</a></li>
@@ -302,24 +325,24 @@ footer {
     </nav>
   </header>
 
-<!-- Slideshow Background -->
+  <!-- Home -->
+  <section id="home">
+    <div class="section-box">
+      <h2>Welcome to War Computers</h2>
+      <p style="color:#bbb; text-align:center;">Best deals on laptops and accessories in Karachi.</p>
+    </div>
+  </section>
+  
+  <!-- Slideshow Background -->
 <div class="slideshow">
-  <img src="images/WC_BG1.jpg" alt="Background 1">
-  <img src="images/WC_BG2.jpg" alt="Background 2">
-  <img src="images/WC_BG3.jpg" alt="Background 3">
-  <img src="images/WC_BG4.jpg" alt="Background 4">
+  <img src="images/bg/wc_bg1.jpg" alt="Background 1">
+  <img src="images/bg/wc_bg2.jpg" alt="Background 2">
+  <img src="images/bg/wc_bg3.jpg" alt="Background 3">
+  <img src="images/bg/wc_bg4.jpg" alt="Background 4">
 </div>
 
-<!-- Home Section -->
-<section id="home">
-  <div class="section-box">
-    <h1>Welcome to War Computer</h1><br>
-    <p>Best Chromebook Prices in Karachi</p>
-  </div>
-</section>
 
 
-  
 
   <!-- Banner -->
   <div class="horizontal-banner"><img src="images/banner-home.jpg" alt="Home Banner"></div>
@@ -330,7 +353,7 @@ footer {
       <h2>Special Offer</h2>
       <div class="products-grid">
         <div class="product-card offer">
-          <img src="images/hp1401.jpg" alt="HP Chromebook">
+          <img src="images/hp1.jpg" alt="HP Chromebook">
           <h3>HP Chromebook</h3>
           <p><strong>Model:</strong> 14a-na1003dx</p>
           <p><strong>Specs:</strong> Intel Celeron, 4GB RAM, 64GB eMMC</p>
@@ -350,13 +373,11 @@ footer {
     <div class="products-grid">
       
       <div class="product-card">
-        <img src="images/acer01.jpg" alt="Dell Chromebook">
-        <h3>Dell Chromebook</h3>
-        <p><strong>Model:</strong> Dell-360</p>
-        <p><strong>Specs:</strong> Dell Touch 360<br> 
-								4 - 32, Display 12", Free Fire Support<br> 
-								Price: 7,500 with adapter</p>
-        <p><strong>Price:</strong> 10,000/-</p>
+        <img src="images/dell1.jpg" alt="Dell Inspiron">
+        <h3>Dell Inspiron</h3>
+        <p><strong>Model:</strong> 15 3511</p>
+        <p><strong>Specs:</strong> Intel i3, 8GB RAM, 256GB SSD</p>
+        <p><strong>Price:</strong> $499</p>
       </div>
 
       <div class="product-card">
@@ -404,15 +425,14 @@ footer {
 </section>
 
 
-
   <!-- Banner -->
   <div class="horizontal-banner"><img src="images/banner-products.jpg" alt="Products Banner"></div>
 
- <!-- Contact -->
+  <!-- Contact -->
 <section id="contact">
   <div class="section-box">
     <h2>Contact Us</h2>
-    <p style="color:#ccc;">For inquiries, reach out via WhatsApp or social media.</p>
+    
 
     <!-- Contact Form -->
     <form class="contact-form" onsubmit="sendWhatsApp(event)">
@@ -441,10 +461,12 @@ footer {
 
   <!-- Footer -->
 <footer>
+  <!-- Left -->
   <div class="footer-left">
     <span id="visit-counter">Visitors: 0</span>
   </div>
 
+  <!-- Center -->
   <div class="footer-center">
     <p>&copy; 2025 War Computer. All Rights Reserved.</p>
     <div class="social-icons">
@@ -454,27 +476,79 @@ footer {
     </div>
   </div>
 
+  <!-- Right -->
   <div class="footer-right">
     <button id="goTopBtn">⬆ Top</button>
   </div>
 </footer>
 
-<!-- Font Awesome for icons -->
-<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+  <!-- Scripts -->
+  <script>
+  // Visitor Counter Global
+  (function(){
+    const domain = window.location.hostname || "warcomputers.local";
+    fetch('https://visitor.6developer.com/visit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ domain: domain })
+    }).then(res => res.json())
+    .then(() => fetch('https://visitor.6developer.com/visit?domain=' + encodeURIComponent(domain)))
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('visitor-count').innerText = data.totalCount || 0;
+    })
+    .catch(err => console.error('Visitor counter error:', err));
+  })();
+
+  // Go To Top button
+  document.getElementById("goTopBtn").addEventListener("click", () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+  
+  function sendWhatsApp(event) {
+  event.preventDefault();
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const message = document.getElementById("message").value;
+  
+  const whatsappNumber = "923001234567"; // change to your WhatsApp number
+  const url = `https://wa.me/${whatsappNumber}?text=Name:%20${encodeURIComponent(name)}%0APhone:%20${encodeURIComponent(phone)}%0AMessage:%20${encodeURIComponent(message)}`;
+  
+  window.open(url, "_blank");
+}
 
 <script>
-// Go To Top Button
-document.getElementById("goTopBtn").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+// Load products from JSON and display in grids
+fetch('data/products.json')
+  .then(res => res.json())
+  .then(products => {
+    const specialContainer = document.querySelector('#special .products-grid');
+    const productsContainer = document.querySelector('#products .products-grid');
 
-// Visitor Counter (simple localStorage)
-let visits = localStorage.getItem("site_visits") || 0;
-visits++;
-localStorage.setItem("site_visits", visits);
-document.getElementById("visit-counter").innerText = "Visitors: " + visits;
+    specialContainer.innerHTML = "";
+    productsContainer.innerHTML = "";
+
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product-card shadow" + (p.offer ? " offer" : "");
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p><strong>Model:</strong> ${p.model}</p>
+        <p><strong>Specs:</strong> ${p.specs}</p>
+        <p><strong>Price:</strong> ${p.price}</p>
+      `;
+
+      if (p.offer) {
+        specialContainer.appendChild(card);
+      } else {
+        productsContainer.appendChild(card);
+      }
+    });
+  })
+  .catch(err => console.error("Error loading products:", err));
 </script>
 
-
+  </script>
 </body>
 </html>

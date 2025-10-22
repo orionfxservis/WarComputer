@@ -1,0 +1,7 @@
+/index.html
+/pages/admin.html
+/images/bg/               ← slideshow (banner) images
+/images/products/         ← product images
+/data/banners.json        ← slideshow data export
+/data/images.json         ← product data export
+/data/products.json 
