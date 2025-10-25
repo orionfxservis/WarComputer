@@ -1,8 +1,12 @@
-/* Reset */
+/* =========================
+   RESET & BASE STYLES
+   ========================= */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; background:#111; color:#fff; }
 
-/* Header */
+/* =========================
+   HEADER
+   ========================= */
 header {
   position: fixed; top:0; left:0; right:0;
   background: rgba(0,0,0,0.85);
@@ -12,106 +16,221 @@ header {
 }
 header img.logo { height:40px; }
 header nav ul { list-style:none; display:flex; gap:25px; }
-header nav ul li a { color:#fff; text-decoration:none; font-weight:bold; transition:color .3s; }
+header nav ul li a {
+  color:#fff; text-decoration:none; font-weight:bold; transition:color .3s;
+}
 header nav ul li a:hover { color:#f90; }
 
-/* Background slideshow */
-.slideshow { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
-.slideshow img { position:absolute; width:100%; height:100%; object-fit:cover; opacity:0; filter:blur(6px) brightness(0.4); animation:slideShow 32s infinite; }
-.slideshow img:nth-child(1){animation-delay:0s;} .slideshow img:nth-child(2){animation-delay:8s;}
-.slideshow img:nth-child(3){animation-delay:16s;} .slideshow img:nth-child(4){animation-delay:24s;}
-@keyframes slideShow{0%{opacity:0;}8%{opacity:1;}25%{opacity:1;}33%{opacity:0;}100%{opacity:0;}}
+/* =========================
+   BACKGROUND SLIDESHOW
+   ========================= */
+/* HERO SLIDESHOW FIXED BACKGROUND */
+#heroSlideshow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  transition: background-image 1s ease-in-out;
+}
 
-/* Sections */
+/* DARK OVERLAY ON SLIDESHOW */
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+
+/* =========================
+   SECTIONS
+   ========================= */
 section { padding:100px 20px; margin-top:60px; }
-.section-box { background:rgba(0,0,0,0.65); padding:40px; border-radius:10px; max-width:1100px; margin:auto; box-shadow:0 0 15px rgba(0,0,0,0.6); }
-section h2 { font-size:2rem; text-align:center; color:#f90; margin-bottom:20px; }
+.section-box {
+  background: rgb(81 54 0 / 50%); padding:40px; border-radius:10px;
+  max-width:1100px; margin:auto; box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+section h2 {
+  font-size:2rem; text-align:center; color:#f90; margin-bottom:20px;
+}
 
-/* Product cards */
-.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; }
-.product-card { background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; text-align:center; transition:.3s; position:relative; }
-.product-card:hover { transform:translateY(-5px); box-shadow:0 0 15px rgba(0,0,0,0.8); }
-.product-card img { width:100%; height:180px; object-fit:cover; border-radius:6px; }
-.product-card h3 { margin:10px 0; color:#f90; }
-.product-card p { color:#ccc; font-size:0.9rem; margin:4px 0; }
-
-/* Offer ribbon */
-.offer::before { content:"Special Offer"; position:absolute; top:12px; left:-40px; background:#f90; color:#111;
-  font-size:0.75rem; font-weight:bold; padding:4px 40px; transform:rotate(-45deg); box-shadow:0 0 5px rgba(0,0,0,0.6); }
-
-/* Footer */
-footer { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:rgba(0,0,0,0.85); font-size:.9rem; }
-.footer-left { color:#f90; font-weight:bold; }
-.footer-center { display:flex; align-items:center; gap:15px; color:#fff; }
-.social-icons a { color:#f90; margin:0 5px; font-size:1.4rem; transition:.3s; }
-.social-icons a:hover { color:#fff; }
-#goTopBtn { background:#f90; border:none; padding:8px 14px; border-radius:5px; cursor:pointer; font-weight:bold; }
-#goTopBtn:hover { background:#ffae33; }
-
-
-/* ============================
-   PRODUCT SECTIONS
-   ============================ */
-/* Enhanced Product Card Styles */
+/* =========================
+   PRODUCT GRID & CARDS
+   ========================= */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin-top: 25px;
+  grid-template-columns: repeat(5, 1fr); /* exactly 5 per row */
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
 }
 
 .product-card {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 18px;
-  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
   text-align: center;
+  width: 200px;
+  padding: 12px;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(6px);
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(255, 165, 0, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(255,165,0,0.25);
 }
 
 .product-card img {
-  width: 100%;
-  height: 190px;
+  width: 90%;
+  height: 140px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 2px solid rgba(255,255,255,0.15);
 }
 
 .product-card h3 {
   color: #ffb400;
-  font-size: 1.25rem;
-  margin: 8px 0;
-  text-shadow: 0 0 4px rgba(0,0,0,0.6);
+  font-size: 1rem;
+  margin: 6px 0;
 }
 
 .product-card p {
-  color: #ddd;
-  font-size: 0.95rem;
-  margin: 3px 0;
+  color: #ccc;
+  font-size: 0.85rem;
+  margin: 3px 0 8px;
 }
 
-.product-card p strong {
-  color: #ffb400;
+/* =========================
+   BUY BUTTON
+   ========================= */
+.product-card .buy-btn {
+  background: #f90;
+  color: #111;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background 0.3s, transform 0.2s;
 }
 
+.product-card .buy-btn:hover {
+  background: #ffb733;
+  transform: scale(1.05);
+}
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .products-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+/* =========================
+   OFFER RIBBON
+   ========================= */
+.offer::before {
+  content: "Special Offer";
+  position: absolute;
+  top: 12px; left: -40px;
+  background: #f90; color: #111;
+  font-size: 0.75rem; font-weight: bold;
+  padding: 4px 40px;
+  transform: rotate(-45deg);
+  box-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 30px; background:rgba(0,0,0,0.85); font-size:.9rem;
+}
+.footer-left { color:#f90; font-weight:bold; }
+.footer-center { display:flex; align-items:center; gap:15px; color:#fff; }
+.social-icons a { color:#f90; margin:0 5px; font-size:1.4rem; transition:.3s; }
+.social-icons a:hover { color:#fff; }
+#goTopBtn {
+  background:#f90; border:none; padding:8px 14px; border-radius:5px;
+  cursor:pointer; font-weight:bold;
+}
+#goTopBtn:hover { background:#ffae33; }
+
+
+
+
+/* =========================
+   RESPONSIVE LAYOUT
+   ========================= */
+@media (max-width: 1200px) {
+  .products-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 992px) {
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
-  .products-grid {
-    grid-template-columns: 1fr;
-  }
+  .products-grid { grid-template-columns: 1fr; }
 }
+
+#heroSlideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  transition: opacity 1s ease-in-out, background-image 1s ease-in-out;
+  opacity: 1;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* ========== WHATSAPP FLOATING BUTTON FIX ========== */
+#whatsappBtn {
+  position: fixed;
+  bottom: 190px; /* slightly above footer */
+  right: 24px;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 10%;
+  background: #25d366; /* WhatsApp green */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#whatsappBtn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+#whatsappBtn img {
+  width: 20px;
+  height: 20px;
+  border-radius: 10%;
+  object-fit: cover;
+  display: block;
+}
+
