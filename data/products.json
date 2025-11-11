@@ -26,5 +26,18 @@
       "https://orionfxservis.github.io/WarComputer/images/laptops/dell/04.jpg",
       "https://orionfxservis.github.io/WarComputer/images/laptops/dell/05.jpg"
     ]
+  },
+  {
+    "category": "special",
+    "title": "Acer Chromebook",
+    "model": "723T",
+    "specs": "Acer 723T\nRam: 4 GB \nHd: 16 GB\nDisplay: 11.6 \nBattery Backup: 4 Hours \n(without Charger)",
+    "price": "10000",
+    "ribbon": "",
+    "images": [
+      "https://orionfxservis.github.io/WarComputer/images/laptops/acer/723t/01.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/acer/723t/02.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/acer/723t/03.jpg"
+    ]
   }
 ]
