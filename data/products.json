@@ -1,26 +1,30 @@
 [
   {
-    "name": "HP Chromebook",
-    "model": "14a-na1003dx",
-    "specs": "Intel Celeron, 4GB RAM, 64GB eMMC",
-    "price": "$249",
-    "image": "images/hp1.jpg",
-    "offer": true
+    "category": "special",
+    "title": "Dell Touch 360",
+    "model": "Dell 3380",
+    "specs": "4 GB Ram, \n32GB ROM, \n12\" Display \nTouch Screen \nFree Fire Support\nGood Battery Backup",
+    "price": "12000",
+    "ribbon": "Special offer",
+    "images": [
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/01.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/02.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/03.jpg"
+    ]
   },
   {
-    "name": "Dell Inspiron",
-    "model": "15 3511",
-    "specs": "Intel i3, 8GB RAM, 256GB SSD",
-    "price": "$499",
-    "image": "images/dell1.jpg",
-    "offer": false
-  },
-  {
-    "name": "HP EliteBook",
-    "model": "840 G7",
-    "specs": "Intel i5, 16GB RAM, 512GB SSD",
-    "price": "$799",
-    "image": "images/hp2.jpg",
-    "offer": false
+    "category": "special",
+    "title": "Dell Chromebook ",
+    "model": "3380",
+    "specs": "Ram: 4 GB \nHD: 43 GB \nDisplay: 11.6\nBattery: 5 hours \nUpdate: 2027\n(without Charger, Windows Version)",
+    "price": "12000",
+    "ribbon": "",
+    "images": [
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/01.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/02.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/03.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/04.jpg",
+      "https://orionfxservis.github.io/WarComputer/images/laptops/dell/05.jpg"
+    ]
   }
 ]
